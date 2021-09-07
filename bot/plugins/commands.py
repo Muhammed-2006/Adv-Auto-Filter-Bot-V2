@@ -24,38 +24,38 @@ async def start(bot, update):
             return
         
         caption = file_caption if file_caption != ("" or None) else ("<code>" + file_name + "</code>")
-        
-        if file_type == "document":
-        
-            await bot.send_document(
-                chat_id=update.chat.id,
-                document = file_id,
+        try:
+            await update.reply_cached_media(
+                file_id,
+                quote=True,
                 caption = caption,
                 parse_mode="html",
-                reply_to_message_id=update.message_id,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/CrazyBotsz"
+                                    'JOIN CHANNEL', url="https://t.me/MOVIES_EMPERIO"
                                 )
                         ]
                     ]
                 )
             )
+        except Exception as e:
+            await update.reply_text(f"<b>Error:</b>\n<code>{e}</code>", True, parse_mode="html")
+            LOGGER(__name__).error(e)
+        return
 
-        elif file_type == "video":
-        
-            await bot.send_video(
-                chat_id=update.chat.id,
-                video = file_id,
-                caption = caption,
-                parse_mode="html",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
+    buttons = [[
+        InlineKeyboardButton('JOIN CHANNEL', url='https://t.me/movies_emperio),
+        InlineKeyboardButton('JOIN GROUP', url='https://t.me/Cinemas_Empire)
+    ],[
+        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/CrazyBotsz/Adv-Auto-Filter-Bot-V2')
+    ],[
+        InlineKeyboardButton('Help ⚙️', callback_data="help")
+    ]]
+    
+    reply_markup = InlineKeyboardMarkup(buttons)
                                 (
                                     'Developers', url="https://t.me/CrazyBotsz"
                                 )
